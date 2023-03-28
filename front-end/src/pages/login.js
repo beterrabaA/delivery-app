@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import contexto from '../context/MyContext';
 
 function Login() {
-  // const { login } = useContext(AuthContext);
+  const { email, handleEmail, password, handlePassWord } = useContext(contexto);
 
   const stringEmail = /\S+[@]\w+[.]\w+/gm;
   const limitador = 6;
@@ -10,9 +12,17 @@ function Login() {
   return (
     <div>
       <h1>Login</h1>
-      <input type="email" data-testid="common_login__input-email" placeholder="email" />
+      <input
+        type="email"
+        onChange={ handleEmail }
+        value={ email }
+        data-testid="common_login__input-email"
+        placeholder="email"
+      />
       <input
         type="password"
+        onChange={ handlePassWord }
+        value={ password }
         data-testid="common_login__input-password"
         placeholder="Password"
       />
@@ -20,19 +30,23 @@ function Login() {
         data-testid="common_login__button-login"
         type="button"
         disabled={ !able }
-        onClick={ console.log('foi') }
+        onClick={ () => console.log('foi') }
       >
         Login
       </button>
       <button
         data-testid="common_login__button-register"
         type="button"
-        onClick={ console.log('foi') }
+        onClick={ () => console.log('foi') }
       >
         Register
       </button>
     </div>
   );
 }
+
+Login.propTypes = {
+  history: PropTypes.shape(),
+}.isRequired;
 
 export default Login;
