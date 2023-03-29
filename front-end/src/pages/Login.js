@@ -30,14 +30,14 @@ function Login() {
         data-testid="common_login__button-login"
         type="button"
         disabled={ !able }
-        onClick={ () => console.log('foi') }
+        onClick={ () => console.log('Login approved') }
       >
         Login
       </button>
       <button
         data-testid="common_login__button-register"
         type="button"
-        onClick={ () => console.log('foi') }
+        onClick={ () => console.log('Register with success') }
       >
         Register
       </button>
