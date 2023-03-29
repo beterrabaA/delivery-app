@@ -1,16 +1,14 @@
 import React from 'react';
 import './App.css';
-import MyProvider from './context/MyProvider';
-// import rockGlass from './images/rockGlass.svg';
-import Rotas from './Routes/Routes';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import Login from './pages/login';
 
 function App() {
   return (
-    <div className="App">
-      <MyProvider>
-        <Rotas />
-      </MyProvider>
-    </div>
+    <Routes>
+      <Route exact path="/" element={ <Navigate to="/login" /> } />
+      <Route exact path="/login" element={ <Login /> } />
+    </Routes>
   );
 }
 
