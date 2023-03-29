@@ -7,6 +7,12 @@ const login = async ({ email, _password }) => {
   console.log(findUser);
 };
 
+const register = async (data) => {
+  const registerUser = await User.create(data);
+  return registerUser;
+};
+
 module.exports = {
   login,
+  register,
 };
