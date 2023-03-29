@@ -5,9 +5,9 @@ import contexto from '../context/MyContext';
 function Login() {
   const { email, handleEmail, password, handlePassWord } = useContext(contexto);
 
-  const stringEmail = /\S+[@]\w+[.]\w+/gm;
+  const stringEmail = /\S+@\S+\.\S+/;
   const limitador = 6;
-  const able = (stringEmail.test(email) && password.length > limitador);
+  const able = stringEmail.test(email) && password.length >= limitador;
 
   return (
     <div>
