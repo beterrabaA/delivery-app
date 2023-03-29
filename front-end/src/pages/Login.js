@@ -13,6 +13,7 @@ function Login() {
   const able = stringEmail.test(email) && password.length >= limitador;
 
   const navigate = useNavigate();
+
   const validateLogin = async () => {
     const CODE_NOT_FOUND = 404;
     const api = axios.create({
@@ -21,8 +22,15 @@ function Login() {
 
     await api.post('/login', { email, password })
       .then((response) => {
-        console.log('dentsso', response.data);
-        navigate('/customer/products');
+        switch (response.data.role) {
+        case 'administrator':
+          navigate('/adm');
+          break;
+        case 'seller':
+          navigate('/seller');
+          break;
+        default: navigate('/customer/products');
+        }
       })
       .catch((error) => {
         if (error.response.status === CODE_NOT_FOUND) return setElemErr(true);
