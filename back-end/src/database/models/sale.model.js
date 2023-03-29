@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-const SalesModel = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   const Sale = sequelize.define('Sale', {
     id: {
       type: DataTypes.INTEGER,
@@ -59,18 +59,16 @@ const SalesModel = (sequelize, DataTypes) => {
     underscored: true,
   });
 
-  SalesModel.associate = ({ UserModel }) => {
-    SalesModel.belongsTo(UserModel, {
+  Sale.associate = ({ User }) => {
+    Sale.belongsTo(User, {
       foreignKey: 'userId',
       as: 'users',
     });
-    SalesModel.belongsTo(UserModel, {
+    Sale.belongsTo(User, {
       foreignKey: 'sellerId',
-      as: 'users',
+      as: 'sellers',
     });
   };
 
   return Sale;
 };
-
-module.exports = SalesModel;

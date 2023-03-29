@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-const UserModel = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: {
       allowNull: false,
@@ -18,10 +18,10 @@ const UserModel = (sequelize, DataTypes) => {
     underscored: true,
   });
 
-  UserModel.associate = ({ SalesModel }) => {
-    UserModel.hasMany(SalesModel, {
+  User.associate = ({ Sale }) => {
+    User.hasMany(Sale, {
       foreignKey: 'userId',
-      as: 'sales',
+      as: 'users',
     }, {
       foreignKey: 'sellerId',
       as: 'sales',
@@ -30,5 +30,3 @@ const UserModel = (sequelize, DataTypes) => {
 
   return User;
 };
-
-module.exports = UserModel;
