@@ -14,6 +14,12 @@ const login = async ({ email, password }) => {
   return findUser;
 };
 
+const register = async (data) => {
+  const registerUser = await User.create(data);
+  return registerUser;
+};
+
 module.exports = {
   login,
+  register,
 };

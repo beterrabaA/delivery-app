@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import PropTypes from 'prop-types';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import contexto from '../context/MyContext';
@@ -65,7 +64,7 @@ function Login() {
       <button
         data-testid="common_login__button-register"
         type="button"
-        onClick={ () => console.log('Register with success') }
+        onClick={ () => navigate('/register') }
       >
         Register
       </button>
@@ -76,9 +75,5 @@ function Login() {
     </div>
   );
 }
-
-Login.propTypes = {
-  history: PropTypes.shape(),
-}.isRequired;
 
 export default Login;
