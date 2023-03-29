@@ -1,14 +1,24 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useState } from 'react';
+// import PropTypes from 'prop-types';
+import { Navigate } from 'react-router-dom';
 import contexto from '../context/MyContext';
 
 function Login() {
+  // const [isLogged, setIsLogged] = useState(false);
+  const [toRegister, setToRegister] = useState(false);
   const { email, handleEmail, password, handlePassWord } = useContext(contexto);
 
   const stringEmail = /\S+@\S+\.\S+/;
   const limitador = 6;
   const able = stringEmail.test(email) && password.length >= limitador;
 
+  // const login = () => {
+  //   setIsLogged(true);
+  // };
+
+  if (toRegister) {
+    return <Navigate to="/register" />;
+  }
   return (
     <div>
       <h1>Login</h1>
@@ -37,7 +47,7 @@ function Login() {
       <button
         data-testid="common_login__button-register"
         type="button"
-        onClick={ () => console.log('Register with success') }
+        onClick={ () => setToRegister(true) }
       >
         Register
       </button>
@@ -45,8 +55,8 @@ function Login() {
   );
 }
 
-Login.propTypes = {
-  history: PropTypes.shape(),
-}.isRequired;
+// Login.propTypes = {
+//   history: PropTypes.shape(),
+// }.isRequired;
 
 export default Login;
