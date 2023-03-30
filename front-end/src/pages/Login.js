@@ -1,13 +1,40 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import contexto from '../context/MyContext';
 
 function Login() {
   const { email, handleEmail, password, handlePassWord } = useContext(contexto);
+  const [elemErr, setElemErr] = useState(false);
 
   const stringEmail = /\S+@\S+\.\S+/;
   const limitador = 6;
   const able = stringEmail.test(email) && password.length >= limitador;
+
+  const navigate = useNavigate();
+
+  const validateLogin = async () => {
+    const CODE_NOT_FOUND = 404;
+    const api = axios.create({
+      baseURL: 'http://localhost:3001',
+    });
+
+    await api.post('/login', { email, password })
+      .then((response) => {
+        switch (response.data.role) {
+        case 'administrator':
+          navigate('/adm');
+          break;
+        case 'seller':
+          navigate('/seller');
+          break;
+        default: navigate('/customer/products');
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === CODE_NOT_FOUND) return setElemErr(true);
+      });
+  };
 
   return (
     <div>
@@ -30,23 +57,23 @@ function Login() {
         data-testid="common_login__button-login"
         type="button"
         disabled={ !able }
-        onClick={ () => console.log('Login approved') }
+        onClick={ validateLogin }
       >
         Login
       </button>
       <button
         data-testid="common_login__button-register"
         type="button"
-        onClick={ () => console.log('Register with success') }
+        onClick={ () => navigate('/register') }
       >
         Register
       </button>
+      {
+        elemErr
+        && <p data-testid="common_login__element-invalid-email"> </p>
+      }
     </div>
   );
 }
-
-Login.propTypes = {
-  history: PropTypes.shape(),
-}.isRequired;
 
 export default Login;

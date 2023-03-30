@@ -24,17 +24,11 @@ const ProductModel = (sequelize, DataTypes) => {
     },
 
   }, {
-    timestamp: false,
+    timestamps: false,
     tableName: 'products',
     underscored: true,
   });
 
-  // ProductModel.associate = ({ SalesModel }) => {
-  //   SalesModel.belongsTo(SalesModel, {
-  //     foreignKey: 'userId',
-  //     as: 'users',
-  //   });
-  // };
   return Product;
 };
 
